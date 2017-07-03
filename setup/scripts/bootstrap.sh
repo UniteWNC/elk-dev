@@ -25,7 +25,7 @@ cp -f /tmp/config/nginx/nginx.conf                /etc/nginx/nginx.conf
 cp -f /tmp/config/nginx/kibana.conf               /etc/nginx/conf.d/kibana.conf
 cp -f /tmp/config/nginx/htpasswd.users            /etc/nginx/htpasswd.users
 cp -f /tmp/config/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
-cp -f /tmp/config/kibana/kibana.yml               /opt/kibana/config/kibana.yml
+cp -f /tmp/config/kibana/kibana.yml               /etc/kibana/kibana.yml
 
 # Start services
 systemctl start nginx
@@ -39,6 +39,8 @@ systemctl enable elasticsearch
 systemctl enable kibana
 systemctl enable logstash
 
+# Add symlinks for kibana
+ln -s /usr/share/kibana/bin/kibana        /usr/local/sbin/
+ln -s /usr/share/kibana/bin/kibana-plugin /usr/local/sbin/
+
 # Configure sense and correct kibana permissions
-/opt/kibana/bin/kibana plugin --install elastic/sense
-chown -R kibana:kibana /opt/kibana
