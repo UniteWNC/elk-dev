@@ -78,8 +78,8 @@ This user has sudo access, so you can escalate to root as needed.
 Additionally, the Kibana frontend will be accessible on your system at `http://localhost:8080`.  The login credentials for the web server are:
 
 ```
-user: kibanaadmin
-pass: admin
+user: elastic
+pass: changeme
 ```
 
 
