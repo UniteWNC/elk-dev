@@ -20,6 +20,9 @@ yum install -y elasticsearch
 yum install -y kibana
 yum install -y logstash
 
+# Install dependencies for kibana plugins
+yum install -y git npm
+
 # Copy over application config
 cp -f /tmp/config/nginx/nginx.conf                /etc/nginx/nginx.conf
 cp -f /tmp/config/nginx/kibana.conf               /etc/nginx/conf.d/kibana.conf
@@ -44,3 +47,12 @@ ln -s /usr/share/kibana/bin/kibana        /usr/local/sbin/
 ln -s /usr/share/kibana/bin/kibana-plugin /usr/local/sbin/
 
 # Configure sense and correct kibana permissions
+git clone https://github.com/dlumbrer/kbn_network.git /usr/share/kibana/plugins/network_vis
+cd /usr/share/kibana/plugins/network_vis/
+rm -rf images
+sed -i "s/5.4.0/5.4.3/g" package.json
+npm install
+
+# Restart services to enable plugins
+service kibana restart        && sleep 30
+service elasticsearch restart && sleep 30
