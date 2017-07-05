@@ -41,6 +41,11 @@ ln -s /usr/share/kibana/bin/kibana-plugin /usr/local/sbin/
 yes | elasticsearch-plugin install x-pack
 kibana-plugin install x-pack
 
+# Install Python DSL
+yum install -y python-pip
+pip install --upgrade pip
+pip install elasticsearch-dsl
+
 # Start services
 systemctl start nginx
 systemctl start elasticsearch
